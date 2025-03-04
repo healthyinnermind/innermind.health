@@ -60,31 +60,6 @@
     object-fit: cover;
 }
 
-
-.background-video2 {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-.background-video2 video {
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-}
-    
 .profile-img {
     width: 222px;
     height: 222px;
@@ -97,7 +72,7 @@
     
 .container {
     width: 85%;
-    max-width: 700px;
+    max-width: 1200px;
     margin: auto;
     padding: 0 20px;
 }
@@ -130,9 +105,6 @@ header p {
 main {
     position: relative;
     z-index: 1;
-    max-width: 800px;
-    
-    margin: auto;
 }
 
 .section {
@@ -470,14 +442,6 @@ p {
         </video>
     </div>
 
-       
-<div class="background-video2">
-    <video id="background-video" muted>
-        <source src="11.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-</div>
-         
     <header>
         <div class="container">
             <h1>Neil Clayton</h1>
@@ -543,8 +507,8 @@ p {
                 <p>
                     I make use of Imago Therapy as a technique to assist couples to learn new and better ways of
                     communicating. 
-                    <br><br>Please note that I prefer the first session with a Couple to be two hours’ long.
-                    <br>Kindly make sure you request this when booking.
+                    <br>(Please note that I prefer the first session with a Couple to be two hours’ long.
+                    Kindly make sure you request this when booking).
                 </p>
             </div>
         </section>
@@ -555,8 +519,7 @@ p {
                 <p>
                     I am ‘solution focused’ and practice a range of psychodynamic therapies, mindfulness approaches,
                     and behavioural interventions. 
-                    <br><br>I also specialise in BWRT (Brain Working Recursive Therapy), 
-                    <br>which is
+                    <br>I also specialise in BWRT (Brain Working Recursive Therapy), which is
                     an effective tool in treating a wide range of mental health conditions.
                 </p>
             </div>
@@ -571,28 +534,25 @@ p {
                     to psychotherapy. 
                     <br><br>KAP has shown significant potential in treating mental disorders such as
                     treatment-resistant depression (TRD), anxiety, obsessive–compulsive disorders (OCD), post-traumatic
-                    stress disorders (PTSD), and other conditions. 
-                    
-                    <br><br>It can also be used for those experiencing substance
+                    stress disorders (PTSD), and other conditions. It can also be used for those experiencing substance
                     abuse and physical pain.
                     <br><br>Ask me to find out more…</p>
             </div>
         </section>
 
-<section id="online" class="section image-bg">
-    <div class="container">
-        <h2>Online Therapy</h2>
-        <p>
-            I also offer online consultations: 
-            <br><br>Although face-to-face therapy is recommended as the preferred
-            method, online therapy might suit some people more, especially those who feel anxious about starting
-            therapy, or those who live far away from my practice. 
-            <br><br>
-            (For instance people living in other cities or abroad.) 
-            <br><br>If this is preferred, I will send you a link so that we can consult over video link online.
-        </p>
-    </div>
-</section>
+        <section id="online" class="section image-bg"
+           
+            <div class="container">
+                <h2>Online Therapy</h2>
+                <p>
+                    I also offer online consultations: Although face-to-face therapy is recommended as the preferred
+                    method, online therapy might suit some people more, especially those who feel anxious about starting
+                    therapy, or those who live far away from my practice. 
+                    (For instance people living in other cities or abroad.) 
+                    <br><br>If this is preferred, I will send you a link so that we can consult over video link online.
+                </p>
+            </div>
+        </section>
 
 
 
@@ -705,25 +665,25 @@ p {
         </div>
     </footer>
 
-
-           <script>
+    <script>
                
 document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
+
     sections.forEach(section => {
         gsap.set(section, { opacity: 0, y: 50 });
 
         ScrollTrigger.create({
             trigger: section,
-            start: "top 50%",
-            end: "bottom 50%",
-            toggleActions: "play none none reverse",
+            start: "top 80%",
+            end: "bottom 20%",
             onEnter: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
             onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
             onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
             onLeaveBack: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
+            once: false,
         });
     });
 
@@ -733,88 +693,48 @@ document.addEventListener('DOMContentLoaded', function () {
             opacity: 1, scale: 1, duration: 1.2, ease: "elastic.out(1, 0.7)",
             scrollTrigger: {
                 trigger: "#quote",
-                start: "top 75%",
-                end: "bottom 25%",
+                start: "top 90%",
+                end: "bottom 10%",
+                scrub: false,
                 once: true,
             }
         });
-
-    document.querySelectorAll('.section img').forEach(img => {
+  document.querySelectorAll('.section img').forEach(img => {
         gsap.fromTo(img,
             { scale: 0.9 },
             {
                 scale: 1, duration: 1.7, ease: "power3.out",
                 scrollTrigger: {
                     trigger: img,
-                    start: "top 70%",
-                    end: "bottom 30%",
+                    start: "top 85%",
+                    end: "bottom 15%",
+                    scrub: false,
                     once: true,
                 }
             });
     });
 
-    document.querySelectorAll('#faq h3').forEach(header => {
+
+    const faqHeaders = document.querySelectorAll('#faq h3');
+
+    faqHeaders.forEach(header => {
         header.addEventListener('click', function () {
             const paragraph = this.nextElementSibling;
-            paragraph.style.display = (paragraph.style.display === 'block') ? 'none' : 'block';
+            const isDisplayed = paragraph.style.display === 'block';
 
-            document.querySelectorAll('#faq h3 + p').forEach(otherParagraph => {
-                if (otherParagraph !== paragraph) otherParagraph.style.display = 'none';
+            faqHeaders.forEach(otherHeader => {
+                const otherParagraph = otherHeader.nextElementSibling;
+                if (otherParagraph !== paragraph) {
+                    otherParagraph.style.display = 'none';
+                }
             });
+
+            paragraph.style.display = isDisplayed ? 'none' : 'block';
         });
     });
-
-
-           
-const backgroundVideoContainer = document.querySelector(".background-video2");
-const backgroundVideo = backgroundVideoContainer.querySelector("video");
-let videoTimeout;
-
-function playVideo(videoSrc) {
-    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1.2 });
-
-    clearTimeout(videoTimeout);
-
-    videoTimeout = setTimeout(() => {
-        backgroundVideo.src = videoSrc;
-        backgroundVideo.load();
-        backgroundVideo.currentTime = 0;
-        backgroundVideo.play();
-
-        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 2 });
-
-        videoTimeout = setTimeout(() => {
-            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
-        }, 5555);
-    }, 2222);
-}
-
-function stopVideo() {
-    clearTimeout(videoTimeout);
-    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.8 });
-}
-
-function createScrollTrigger(triggerId, videoSrc) {
-    ScrollTrigger.create({
-        trigger: triggerId,
-        start: "top 50%",
-        end: "bottom 50%",
-        onEnter: () => playVideo(videoSrc),
-        onEnterBack: () => playVideo(videoSrc),
-        onLeave: () => stopVideo(),
-        onLeaveBack: () => stopVideo()
-    });
-}
-
-createScrollTrigger("#approach", "3.mp4");
-createScrollTrigger("#online", "6.mp4");
-createScrollTrigger("#imago", "5.mp4");
-createScrollTrigger("#expertise", "2.mp4");
-createScrollTrigger("#ketamine", "11.mp4");        
-                
-});
-</script> 
-    
+});               
+               
+</script>
 </body>
 
 </html>
