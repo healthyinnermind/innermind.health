@@ -733,7 +733,37 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });               
-               
+
+
+        
+    document.getElementById("contact-form").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    let submitButton = this.querySelector("button");
+    submitButton.disabled = true;  
+
+    let formData = new FormData();
+    let combinedMessage = `
+        Name: ${document.getElementById("name").value}
+        Email: ${document.getElementById("email").value}
+        Message: ${document.getElementById("message").value}
+    `.trim();
+
+    formData.append("entry.1662313948", combinedMessage);
+
+    fetch("https://docs.google.com/forms/d/e/1FAIpQLScbQTUj4D6bpLRdFRi0r4cOx5aRAYuKTcL3m5cC0KpXrVIwNA/formResponse", {
+        method: "POST",
+        body: formData,
+        mode: "no-cors"
+    });
+
+    setTimeout(() => {
+        alert("Form submitted successfully!");
+        document.getElementById("contact-form").reset();
+        submitButton.disabled = false;  
+    }, 1000);
+});
+        
 </script>
 </body>
 
