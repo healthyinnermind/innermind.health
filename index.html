@@ -1,1 +1,477 @@
-index
+<!DOCTYPE html>
+
+<!-- Legal Footnote: This content is subject to copyright and should not be reproduced without permission. -->
+<!-- Written and created by Thomas John-Michael de Beer, feel free to contact me via tjdebeer@gmail.com  -->
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neil Psychologist</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: black;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 2s ease-in-out;
+            opacity: 0;
+        }
+
+        video.active {
+            opacity: 1;
+        }
+
+        .text-container {
+            position: fixed;
+            bottom: 62px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 199;
+            width: 100%;
+        }
+
+        .text-container h1,
+        .text-container h2,
+        .book-here {
+            color: #3399FF;
+        }
+
+        .text-container h1 {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 43px;
+            font-weight: lighter;
+            letter-spacing: 1px;
+        pointer-events: none;
+        }
+
+        .text-container h2 {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 25px;
+            font-weight: bold;
+            letter-spacing: 2.2px;
+            margin-bottom: 2px;
+        pointer-events: none;
+        }
+
+        .text-container h3 {
+            font-family: 'Helvetica', sans-serif;
+            font-size: 23px;
+            font-weight: lighter;
+            letter-spacing: 3.3px;
+            color: white;
+            opacity: 0.4;
+        }
+
+        .book-here {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 198;
+        }
+
+        .icon-row {
+            display: flex;
+            justify-content: space-between;
+            width: 222px;
+            position: fixed;
+            bottom: 42px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 333;
+        }
+
+        .icon {
+            text-decoration: none;
+            outline: none;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            transition: background 0.3s ease-in-out;
+            color: white;
+        }
+
+        .icon:focus,
+        .icon:active {
+            outline: none;
+            box-shadow: none;
+        }
+
+        .icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .icon i {
+            font-size: 28px;
+            color: inherit;
+        }
+
+.logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    animation: fadeOutContainer 5s ease-in-out forwards;
+}
+
+.logo-container img {
+    width: 111px;
+    animation: fadeInOutLogo 5s ease-in-out forwards;
+}
+
+@keyframes fadeOutContainer {
+    0% {
+        opacity: 1;
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@keyframes fadeInOutLogo {
+    0% {
+        opacity: 0;
+    }
+    33% {
+        opacity: 1;
+    }
+    55% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+   .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 33px;
+        text-align: center;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .modal-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .location-btn {
+        text-decoration: none;
+        background: #007BFF;
+        color: white;
+        padding: 10px;
+        border-radius: 22px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 2px;
+    }
+
+    .location-btn:hover {
+        background: #0056b3;
+    }
+
+
+        .location-icon {
+    font-size: 44px;
+    color: #007BFF;
+            opacity: 0.4;
+}
+
+ #appointmentBtn {
+    display: block;
+    margin: 15px 15px;
+}
+
+
+
+.image-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 555;
+}
+
+#neil-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 8px solid white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+}
+        
+    </style>
+</head>
+<body>
+    <div class="logo-container" id="logo-container">
+        <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
+    </div>
+    
+    <div class="video-container">
+        <video id="video1" class="active" autoplay muted playsinline preload="auto"></video>
+        <video id="video2" autoplay muted playsinline preload="auto"></video>
+    </div>
+
+    
+<div class="book-here" id="openModal">
+</div>
+    
+    <div class="text-container">
+        <h1>CLINICAL</h1>
+        <h2>PSYCHOLOGY</h2>
+        <h3>NEIL CLAYTON</h3>
+    </div>
+
+    <div class="container">
+        <div class="bottom-buttons">
+            <div class="icon-row">
+                <a href="https://api.whatsapp.com/send/?phone=27814446461" target="_blank" class="icon" aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+
+                <a href="mailto:info@psychologistneil.co.za" class="icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+
+                <a href="info.html" target="_blank" class="icon" aria-label="Info">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+<div id="bookingModal" class="modal" onclick="closeModal(event, this)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <i class="fas fa-location-pin location-icon"></i>
+        <div class="modal-buttons">
+            <button class="location-btn open-location-modal" data-location="westville">WESTVILLE</button>
+            <button class="location-btn open-location-modal" data-location="bluff">THE BLUFF</button>
+            <a href="https://psychologistneil.co.za" target="_blank" class="location-btn">ONLINE</a>
+        </div>
+    </div>
+</div>
+
+<div id="locationModal" class="modal" onclick="closeModal(event, this)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <div id="map-container" style="width: 246px; height: 246px; border-radius: 50%; overflow: hidden; margin: 11px auto 0 auto;">
+            <div id="loadingSpinner" style="margin-bottom: 22px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: block;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 66px; color: #007BFF;"></i>
+            </div>
+            <iframe id="mapFrame" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+        <p id="locationAddress" style="margin-top: 15px; font-size: 16px; color: black; font-weight: bold;"></p>
+        <a id="appointmentBtn" href="#" target="_blank" class="location-btn">MAKE APPOINTMENT</a>
+    </div>
+</div>
+   
+
+
+<div class="image-container" id="image-container">
+    <img src="neil.png" alt="Neil Clayton" id="neil-image">
+</div>
+    
+    
+<script>
+    const videos = ["1.mp4", "2.mp4", "3.mp4", "5.mp4"];
+    let currentIndex = 0;
+    let activeVideo = document.getElementById("video1");
+    let nextVideo = document.getElementById("video2");
+
+    function loadAndPlayVideo(videoElement, videoSource) {
+        videoElement.src = videoSource;
+        videoElement.load();
+        videoElement.oncanplaythrough = () => {
+            videoElement.play();
+        };
+        videoElement.onerror = () => {
+            console.error(`Error loading video: ${videoSource}`);
+        };
+    }
+
+    loadAndPlayVideo(activeVideo, videos[currentIndex]);
+
+    function preloadNextVideo() {
+        const nextIndex = (currentIndex + 1) % videos.length;
+        loadAndPlayVideo(nextVideo, videos[nextIndex]);
+
+        nextVideo.oncanplaythrough = () => {
+            console.log(`Preloaded: ${videos[nextIndex]}`);
+        };
+    }
+
+    function switchVideo() {
+        activeVideo.style.opacity = 0;
+        nextVideo.style.opacity = 1;
+
+        setTimeout(() => {
+            [activeVideo, nextVideo] = [nextVideo, activeVideo];
+
+            nextVideo.classList.remove("active");
+            nextVideo.pause();
+            nextVideo.currentTime = 0;
+
+            currentIndex = (currentIndex + 1) % videos.length;
+
+            preloadNextVideo();
+        }, 2222);
+    }
+
+    preloadNextVideo();
+
+    setInterval(switchVideo, 5000);
+
+
+
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        const locationModal = document.getElementById("locationModal");
+        const mapFrame = document.getElementById("mapFrame");
+        const locationAddress = document.getElementById("locationAddress");
+        const appointmentBtn = document.getElementById("appointmentBtn");
+        const openModal = document.getElementById("openModal");
+        const bookingModal = document.getElementById("bookingModal");
+
+        function openLocationModal(mapURL, address, appointmentLink) {
+            mapFrame.src = mapURL;
+            locationAddress.innerText = address;
+            appointmentBtn.href = appointmentLink;
+            locationModal.style.display = "flex";
+        }
+
+        document.querySelectorAll(".open-location-modal").forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const location = this.getAttribute("data-location");
+                if (location === "westville") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d27690.13322794686!2d30.912925999999995!3d-29.827723999999996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700337d30105b%3A0xc961cbea53f53d2b!2s2%20Knoll%20Rd%2C%20Grayleigh%2C%20Westville%2C%203629%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1739011907910!5m2!1sen!2sus&controls=0",
+                        "2 Knoll Rd, Grayleigh, Westville",
+                        "https://mygc.co.za/external/diary/505e92bf-ddb4-41c9-8bc5-12d81ffae676"
+                    );
+                } else if (location === "bluff") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.6469313054745!2d31.023779476313745!3d-29.903272424745683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7a923ca92f11b%3A0x16a27cd2b3fb2c62!2s297%20Lighthouse%20Rd%2C%20Fynnlands%2C%20Bluff%2C%204052!5e0!3m2!1sen!2sza!4v1739006295260!5m2!1sen!2sza",
+                        "297 Lighthouse Rd, Fynnlands, Bluff",
+                        "https://mygc.co.za/external/diary/fcc81486-178c-4cfe-ad19-fcc7d0f93aa1"
+                    );
+                }
+            });
+        });
+
+        openModal.addEventListener("click", function () {
+            bookingModal.style.display = "flex";
+        });
+
+        const loadingSpinner = document.getElementById("loadingSpinner");
+
+        mapFrame.onload = function () {
+            loadingSpinner.style.display = "none";
+        };
+
+        mapFrame.onerror = function () {
+            loadingSpinner.innerHTML = "Failed to load map. Please try again later.";
+            loadingSpinner.style.color = "red";
+        };
+    });
+
+    function closeModal(event, modal) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+
+
+    //profile
+document.addEventListener("DOMContentLoaded", function () {
+    const neilText = document.querySelector(".text-container h3");
+    const imageContainer = document.getElementById("image-container");
+    const neilImage = document.getElementById("neil-image");
+
+    neilText.addEventListener("click", function () {
+        imageContainer.style.display = "flex";
+        neilImage.classList.add("active");
+    });
+
+    imageContainer.addEventListener("click", function () {
+        imageContainer.style.display = "none";
+        neilImage.classList.remove("active");
+    });
+});
+</script>
+
+</body>
+</html>
