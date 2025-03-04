@@ -1,1 +1,820 @@
+<!DOCTYPE html>
 
+<!-- Legal Footnote: This content is subject to copyright and should not be reproduced without permission. -->
+<!-- Written and created by Thomas John-Michael de Beer, feel free to contact me via tjdebeer@gmail.com  -->
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Thomas John-Michael de Beer">
+    <meta name="description" content="Neil Clayton is a Clinical Psychologist offering expert mental health services in Westville, Durban, and The Bluff. Specializing in private psychology consultations, therapy, and online appointments.">
+    <meta name="keywords" content="Psychology, psychologist, Clinical Psychologist, Neil Clayton, Westville psychologist, Durban psychologist, Bluff psychologist, private psychology practice, online psychology consultations, mental health therapy, psychotherapy, counseling, mental health services, psychology appointments Durban, online therapy South Africa">
+    <meta name="robots" content="index, follow">
+    
+    <title>Neil Clayton - Clinical Psychologist</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js" defer></script>
+
+<style>
+   
+   body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    background-color: #f4f7f9;
+    color: #333;
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+.background-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.background-video video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+
+
+.background-video2 {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.background-video2 video {
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+}
+    
+.profile-img {
+    width: 222px;
+    height: 222px;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: block;
+    margin: 0 auto 55px;
+}
+    
+.container {
+    width: 85%;
+    max-width: 700px;
+    margin: auto;
+    padding: 0 20px;
+}
+
+header {
+    background: rgba(41, 171, 226, 0);
+    color: #fff;
+    padding: 20px 0;
+    margin-bottom: 99px;
+    margin-top: 35vh; 
+    position: relative;
+    z-index: 100;
+    text-align: center;
+}
+
+header h1 {
+    font-size: 3em;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+header p {
+    font-size: 1.4em;
+    margin-top: 1px;
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+main {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    
+    margin: auto;
+}
+
+.section {
+    padding: 40px;
+    margin-bottom: 30px;
+    background-color: transparent;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+
+.section.image-bg {
+    background-size: cover;
+    background-position: center;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    padding: 60px;
+    position: relative;
+    overflow: hidden;
+}
+
+.section.image-bg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
+}
+
+.section.image-bg>* {
+    position: relative;
+    z-index: 2;
+}
+
+.section.image-bg h2,
+.section.image-bg p,
+.section.image-bg ul {
+    color: white;
+}
+
+#quote {
+    background: transparent;
+    font-style: italic;
+    padding: 40px;
+    transition: background-color 0.3s ease;
+}
+
+
+#quote blockquote {
+    font-size: 1.7em;
+    text-align: center;
+    color: white;
+    padding: 0 30px;
+    line-height: 1.9;
+    transition: color 0.3s ease;
+}
+
+#quote .author {
+    text-align: center;
+    font-size: 1.1em;
+    color: white;
+    transition: color 0.3s ease;
+    margin-top: 15px;
+}
+
+#about h2,
+#expertise h2,
+#imago h2,
+#approach h2,
+#ketamine h2,
+#online h2,
+#faq h2,
+#contact h2 {
+    color: #29ABE2;
+    text-align: center;
+    border-bottom: 3px solid #29ABE2;
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    font-size: 2.4em;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+#expertise ul {
+    list-style-type: disc;
+    padding-left: 30px;
+}
+
+#expertise li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    line-height: 1.7;
+}
+    
+#faq h3 {
+    color: #29ABE2;
+    margin-top: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease, background-color 0.3s ease;
+    padding: 15px;
+    background-color: #f0f5f9;
+    border-radius: 8px;
+    margin-bottom: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+#faq h3:hover {
+    color: #fff;
+    background-color: #1e81b0;
+}
+
+#faq p {
+    margin-bottom: 20px;
+    line-height: 1.8;
+    padding: 15px;
+    border-top: none;
+    background-color: transparent;
+}
+
+#contact-form {
+    margin-top: 30px;
+}
+
+#contact-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: white;
+}
+
+#contact-form input[type="text"],
+#contact-form input[type="email"],
+#contact-form textarea {
+    width: 100%;
+    padding: 14px;
+    margin-bottom: 20px;
+    border: 1px solid #bcd0e7;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 1em;
+    transition: border-color 0.3s ease;
+    background-color: #f8fafd;
+    color: #333;
+}
+
+#contact-form input[type="text"]:focus,
+#contact-form input[type="email"]:focus,
+#contact-form textarea:focus {
+    border-color: #29ABE2;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(41, 171, 226, 0.2);
+}
+
+#contact-form textarea {
+    height: 150px;
+}
+
+#contact-form button {
+    background-color: #29ABE2;
+    color: white;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#contact-form button:hover {
+    background-color: #1e81b0;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+footer {
+    background: #343a40;
+    color: #fff;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 40px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+}
+
+footer p {
+    font-size: 0.9em;
+    opacity: 0.8;
+}
+
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 20px auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+p {
+    margin-bottom: 20px;
+    color: white;
+}
+    
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 0 15px;
+    }
+
+    header {
+        padding: 30px 0;
+    }
+
+    header h1 {
+        font-size: 2.6em;
+    }
+
+    header p {
+        font-size: 1.3em;
+    }
+
+    .section {
+        padding: 30px;
+    }
+
+    .section.image-bg {
+        padding: 40px;
+    }
+
+    #quote blockquote {
+        font-size: 1.5em;
+    }
+
+    #about h2,
+    #expertise h2,
+    #imago h2,
+    #approach h2,
+    #ketamine h2,
+    #online h2,
+    #faq h2,
+    #contact h2 {
+        font-size: 2em;
+    }
+
+    #expertise ul {
+        padding-left: 25px;
+    }
+
+    #expertise li {
+        font-size: 1em;
+    }
+
+    #faq h3 {
+        font-size: 1.2em;
+    }
+
+    #contact-form input[type="text"],
+    #contact-form input[type="email"],
+    #contact-form textarea {
+        padding: 12px;
+        margin-bottom: 18px;
+        font-size: 0.95em;
+    }
+
+    #contact-form button {
+        padding: 12px 20px;
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 2.2em;
+    }
+
+    header p {
+        font-size: 1.1em;
+    }
+
+    .section {
+        padding: 20px;
+    }
+
+    .section.image-bg {
+        padding: 30px;
+    }
+
+    #quote blockquote {
+        font-size: 1.3em;
+    }
+}
+
+.black-element {
+    background-color: black;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 99999;
+    opacity: 1;
+    animation: fadeOut 5s forwards;
+    animation-delay: 1s;
+  pointer-events: none;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    20% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+    
+   </style> 
+<body>
+
+<div class="black-element"></div>
+    
+    <div class="background-video">
+        <video autoplay loop muted playsinline>
+            <source src="1.mp4"
+                type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+       
+<div class="background-video2">
+    <video id="background-video" muted>
+        <source src="11.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+</div>
+         
+    <header>
+        <div class="container">
+            <h1>Neil Clayton</h1>
+            <p>Clinical Psychologist</p>
+        </div>
+    </header>
+
+    <main>
+        <section id="quote" class="section">
+            <div class="container">
+                <blockquote>
+                    "We have more possibilities available in each moment than we realize."
+                </blockquote>
+                <p class="author">Thich Nhat Hanh, Zen Philosopher</p>
+            </div>
+        </section>
+
+
+<section id="about" class="section image-bg">
+    <div class="container">
+        <img src="neil.png" alt="Neil Clayton" class="profile-img">
+                <h2>About Me</h2>
+                <p>
+                    I am deeply interested in how people think, feel, and behave. 
+                    <br><br>I appreciate the journey of self
+                    discovery and helping people heighten their self-awareness so that they can increase their resilience towards
+                    life’s challenges. 
+                    <br><br>I am experienced in working with children, adolescents, and adults; and I also
+                    enjoy working with families.
+                </p>
+                <p>
+                    I strive to provide a safe and comfortable space where people can identify challenges and find
+                    better ways of coping.
+                </p>
+    </div>
+</section>
+
+
+        <section id="expertise" class="section image-bg"
+            <div class="container">
+                <h2>Expertise</h2>
+                <p>I have experience in helping people make sustainable behavioural improvements in the following
+                    areas:</p>
+                <ul>
+                    <li>Anxiety</li>
+                    <li>Depression</li>
+                    <li>Complex grief</li>
+                    <li>Trauma</li>
+                    <li>Adjustment to change</li>
+                    <li>Financial stress</li>
+                    <li>Interpersonal relationships</li>
+                    <li>Existential crisis</li>
+                    <li>Adolescent challenges</li>
+                    <li>Career Assessments</li>
+                    <li>Couples Counselling</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="imago" class="section image-bg"
+            <div class="container">
+                <h2>Imago for Couples</h2>
+                <p>
+                    I make use of Imago Therapy as a technique to assist couples to learn new and better ways of
+                    communicating. 
+                    <br><br>Please note that I prefer the first session with a Couple to be two hours’ long.
+                    <br>Kindly make sure you request this when booking.
+                </p>
+            </div>
+        </section>
+
+        <section id="approach" class="section image-bg"
+            <div class="container">
+                <h2>Approach</h2>
+                <p>
+                    I am ‘solution focused’ and practice a range of psychodynamic therapies, mindfulness approaches,
+                    and behavioural interventions. 
+                    <br><br>I also specialise in BWRT (Brain Working Recursive Therapy), 
+                    <br>which is
+                    an effective tool in treating a wide range of mental health conditions.
+                </p>
+            </div>
+        </section>
+
+        <section id="ketamine" class="section image-bg"
+           
+            <div class="container">
+                <h2>Ketamine Assisted Psychotherapy</h2>
+                <p>
+                    Ketamine-assisted psychotherapy (KAP) involves the use of prescribed doses of ketamine as an adjunct
+                    to psychotherapy. 
+                    <br><br>KAP has shown significant potential in treating mental disorders such as
+                    treatment-resistant depression (TRD), anxiety, obsessive–compulsive disorders (OCD), post-traumatic
+                    stress disorders (PTSD), and other conditions. 
+                    
+                    <br><br>It can also be used for those experiencing substance
+                    abuse and physical pain.
+                    <br><br>Ask me to find out more…</p>
+            </div>
+        </section>
+
+<section id="online" class="section image-bg">
+    <div class="container">
+        <h2>Online Therapy</h2>
+        <p>
+            I also offer online consultations: 
+            <br><br>Although face-to-face therapy is recommended as the preferred
+            method, online therapy might suit some people more, especially those who feel anxious about starting
+            therapy, or those who live far away from my practice. 
+            <br><br>
+            (For instance people living in other cities or abroad.) 
+            <br><br>If this is preferred, I will send you a link so that we can consult over video link online.
+        </p>
+    </div>
+</section>
+
+
+
+<section id="faq" class="section">
+    <div class="container">
+        <h2>Frequently Asked Questions…</h2>
+        
+        <h3>What is Therapy and Counselling?</h3>
+        <p style="display: none;">
+            It sounds too easy, but simply talking to someone within a confidential and safe space allows you the
+            freedom to open up about your feelings, the challenges you are facing, and to express yourself openly
+            and honestly. 
+            <br><br>Empathic and sincere listening by an experienced therapist who is able to use their skills,
+            training and knowledge to help you make sense of what you are going through, can provide you with a
+            deeper sense of clarity and awareness. 
+            
+            <br><br>With a little effort, this can deepen and enhance your coping
+            skills.
+        </p>
+
+        <h3>Does therapy or counselling help?</h3>
+        <p style="display: none;">
+            These talking interventions and behavioural techniques are evidence-based and have been shown to be
+            very effective in treating anxiety, depression, fear, addiction and a vast range of other emotional
+            challenges. 
+            
+            <br><br>The insights and knowledge acquired can be used to make positive changes in the way we think,
+            feel and behave, which can in turn improve our interpersonal relationships.
+        </p>
+
+        <h3>How do I know if I need counselling?</h3>
+        <p style="display: none;">
+            In actual fact we would all benefit from counselling as it can be a very life-enriching experience.
+            Questions you may want to ask yourself however are:<br><br>
+        Do I find it difficult to stay focused?<br>
+        Do I have difficulty sleeping through the night?<br>
+        Do I sometimes look in the mirror and not like what I see?<br>
+        Do I doubt myself at work or in my relationships?<br>
+        Do I worry a lot about things I can’t really control?<br>
+        Do I drink alcohol or use drugs or medication to help me cope?<br>
+        Do I find myself preoccupied with the future or the past?<br>
+        Do I sometimes feel stressed and even overwhelmed about stuff?<br>
+        Do I sometimes snap and lose my temper inappropriately?<br>
+        Do I sometimes feel sad or want to cry for no particular reason?<br>
+        Do I get into lots of arguments with people who are close to me?<br>
+        Do I sometimes feel as if things are kind of meaningless?</p>
+
+        <h3>How many sessions will I need?</h3>
+        <p style="display: none;">
+            This depends on the particular circumstances of each person. 
+            
+            <br><br>We will work together to help solve some of your challenges. 
+            
+            <br><br>We will do this in the most efficient way we can, and during the first session, we will
+            co-create a therapeutic contract and agree on a certain number of preliminary sessions. 
+            
+            <br><br>Typically however, you can expect anything from three to six sessions, but it could be more or it might be less.
+        </p>
+
+        <h3>How much does it cost?</h3>
+        <p style="display: none;">
+            Psychotherapy and counselling consultations are covered by most Medical Aid schemes (obviously depending on your particular policy).
+            <br><br> I am registered with most Medical Aids and if you have the appropriate cover, I am happy to claim on your behalf. 
+            <br>Fees are charged according to tariffs recommended by the Board of Health Care Funders. 
+            <br><br>If you would prefer to pay for the consultation yourself, I usually charge R1350 for a
+            consultation, which is less than the standard Medical Aid rates. 
+            <br><br>I accept various payment methods including cash, credit and debit cards, EFT, Zapper and even PayPal. 
+            <br><br>If you would like to claim from your Medical Aid however, I will provide you with a receipt for possible reimbursement. 
+            <br><br>I will make every effort to ensure you are able to afford the care you need.
+        </p>
+    </div>
+</section>
+
+        <section id="contact" class="section">
+            <div class="container">
+                <h2>Contact</h2>
+                <p>I run two practices:</p>
+                <p>Rooms on the Bluff at Dr Khan’s Medical Centre, 297 Lighthouse Road, Fynnlands.</p>
+                <p>Rooms in Westville at a private residence, 2 Knoll Road, Grayleigh.</p>
+                <p>If you would like to schedule an appointment, you can book online or you can contact Shakayla (my
+                    Practice Manager) to schedule a session. If she doesn’t answer, please send her a WhatsApp
+                    message.</p>
+                <p>Her number is 081 444 6461</p>
+               
+                <p>Mine is 069 524 3665</p> 
+                <p>Another option is to fill in the form below and I will get back to you as soon as possible!</p>
+
+                <form id="contact-form">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" rows="4" required></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+
+                <p><a href='#'>POPIA Manual</a></p>
+                <p><a href='#'>PAIA Manual</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Neil Clayton. All rights reserved.</p>
+        </div>
+    </footer>
+
+
+           <script>
+               
+document.addEventListener('DOMContentLoaded', function () {
+    gsap.registerPlugin(ScrollTrigger);
+
+    const sections = gsap.utils.toArray(".section");
+    sections.forEach(section => {
+        gsap.set(section, { opacity: 0, y: 50 });
+
+        ScrollTrigger.create({
+            trigger: section,
+            start: "top 50%",
+            end: "bottom 50%",
+            toggleActions: "play none none reverse",
+            onEnter: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
+            onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
+            onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
+            onLeaveBack: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
+        });
+    });
+
+    gsap.fromTo("#quote",
+        { opacity: 0, scale: 0.8 },
+        {
+            opacity: 1, scale: 1, duration: 1.2, ease: "elastic.out(1, 0.7)",
+            scrollTrigger: {
+                trigger: "#quote",
+                start: "top 75%",
+                end: "bottom 25%",
+                once: true,
+            }
+        });
+
+    document.querySelectorAll('.section img').forEach(img => {
+        gsap.fromTo(img,
+            { scale: 0.9 },
+            {
+                scale: 1, duration: 1.7, ease: "power3.out",
+                scrollTrigger: {
+                    trigger: img,
+                    start: "top 70%",
+                    end: "bottom 30%",
+                    once: true,
+                }
+            });
+    });
+
+    document.querySelectorAll('#faq h3').forEach(header => {
+        header.addEventListener('click', function () {
+            const paragraph = this.nextElementSibling;
+            paragraph.style.display = (paragraph.style.display === 'block') ? 'none' : 'block';
+
+            document.querySelectorAll('#faq h3 + p').forEach(otherParagraph => {
+                if (otherParagraph !== paragraph) otherParagraph.style.display = 'none';
+            });
+        });
+    });
+
+
+           
+const backgroundVideoContainer = document.querySelector(".background-video2");
+const backgroundVideo = backgroundVideoContainer.querySelector("video");
+let videoTimeout;
+
+function playVideo(videoSrc) {
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1.2 });
+
+    clearTimeout(videoTimeout);
+
+    videoTimeout = setTimeout(() => {
+        backgroundVideo.src = videoSrc;
+        backgroundVideo.load();
+        backgroundVideo.currentTime = 0;
+        backgroundVideo.play();
+
+        gsap.to(backgroundVideoContainer, { opacity: 1, duration: 2 });
+
+        videoTimeout = setTimeout(() => {
+            gsap.to(backgroundVideoContainer, { opacity: 0, duration: 1 });
+        }, 5555);
+    }, 2222);
+}
+
+function stopVideo() {
+    clearTimeout(videoTimeout);
+    gsap.to(backgroundVideoContainer, { opacity: 0, duration: 0.8 });
+}
+
+function createScrollTrigger(triggerId, videoSrc) {
+    ScrollTrigger.create({
+        trigger: triggerId,
+        start: "top 50%",
+        end: "bottom 50%",
+        onEnter: () => playVideo(videoSrc),
+        onEnterBack: () => playVideo(videoSrc),
+        onLeave: () => stopVideo(),
+        onLeaveBack: () => stopVideo()
+    });
+}
+
+createScrollTrigger("#approach", "3.mp4");
+createScrollTrigger("#online", "6.mp4");
+createScrollTrigger("#imago", "5.mp4");
+createScrollTrigger("#expertise", "2.mp4");
+createScrollTrigger("#ketamine", "11.mp4");        
+                
+});
+</script> 
+    
+</body>
+
+</html>
