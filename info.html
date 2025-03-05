@@ -176,6 +176,7 @@ main {
 }
 
 #about h2,
+#reviews h2,
 #expertise h2,
 #imago h2,
 #approach h2,
@@ -347,6 +348,7 @@ p {
     }
 
     #about h2,
+    #reviews h2,
     #expertise h2,
     #imago h2,
     #approach h2,
@@ -480,7 +482,41 @@ p {
                 </p>
     </div>
 </section>
+        
+<section id="reviews" class="section image-bg">
+    <div class="container">
+        <h2>REVIEWS</h2>
+        <div class="stars" style="text-align: center;">
+            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFD700">
+                <path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFD700">
+                <path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="44px" viewBox="0 -960 960 960" width="44px" fill="#FFD700">
+                <path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFD700">
+                <path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" height="30px" viewBox="0 -960 960 960" width="30px" fill="#FFD700">
+                <path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/>
+            </svg>
+        </div>
 
+        <div id="reviewQuote" class="review-quote" style="text-align: center; margin-top: 20px; font-style: italic; opacity: 0.8;">
+    <p id="reviewText">“Please wait while we load a review.”</p>
+    <p style="text-align: right; margin-top: 10px; margin-bottom: 22px; font-weight: lighter; opacity: 0.4;">
+        - <span id="reviewerName">Loading...</span>
+    </p>
+</div>
+
+        <p>Neil Clayton consistently receives outstanding 5-star reviews for his exceptional work and unwavering commitment to his practice. His clients applaud his professionalism and the remarkable results he delivers.</p>
+        <p>Discover firsthand testimonials that highlight Neil’s expertise and dedication.</p>
+        <br>
+        <p><a href="https://www.google.com/maps/place/Psychologist+Neil/@-29.828476,30.9107579,17z/data=!4m8!3m7!1s0x1ef7a977aadb1e81:0xf764b08160009411!8m2!3d-29.8277236!4d30.9129257!9m1!1b1!16s%2Fg%2F11kkyr95cy?hl=en-za&entry=ttu&g_ep=EgoyMDI1MDMwMi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">Google Reviews</a></p>
+    </div>
+</section>
 
         <section id="expertise" class="section image-bg"
             <div class="container">
@@ -503,17 +539,18 @@ p {
             </div>
         </section>
 
-        <section id="imago" class="section image-bg"
-            <div class="container">
-                <h2>Imago for Couples</h2>
-                <p>
-                    I make use of Imago Therapy as a technique to assist couples to learn new and better ways of
-                    communicating. 
-                    <br><br>(Please note that I prefer the first session with a Couple to be two hours’ long.
-                    Kindly make sure you request this when booking).
-                </p>
-            </div>
-        </section>
+        <section id="imago" class="section image-bg">
+    <div class="container">
+        <h2>Imago for Couples</h2>
+        <p>
+            Imago Therapy is a transformative approach designed to help couples deepen their connection and improve communication. 
+            <br><br>Through guided dialogues, partners can gain a better understanding of each other’s emotional needs, creating a safe space for healing and growth. 
+            <br><br>By uncovering patterns from the past and learning to listen with empathy, couples can strengthen their bond and navigate conflicts in a healthier way. 
+            <br><br>
+            Please note, I recommend the first session for couples to be two hours long to allow for a comprehensive introduction to the process. Kindly ensure you request this when booking.
+        </p>
+    </div>
+</section>
 
         <section id="approach" class="section image-bg"
             <div class="container">
@@ -767,6 +804,36 @@ document.addEventListener('DOMContentLoaded', function () {
         submitButton.disabled = false;  
     }, 1000);
 });
+
+
+
+
+    const reviews = [
+        { name: "Hloni Khumalo", text: "Neil is an amazing psychologist. As a single mom, I struggled with certain topics, but he helped bridge the gap with my son." },
+        { name: "André Pienaar", text: "Neil helped my partner and me reconnect, strengthening our relationship through better communication and understanding." },
+        { name: "Moulana Ahmed Sirajudeen Hoosain", text: "Highly recommended psychologist! He listens attentively and provides approaches that lead to positive solutions." },
+        { name: "Emily Boshoff", text: "Neil helped me through the loss of my mother. He was the only one who truly understood me at the time." },
+        { name: "Priscilla Forbay", text: "Neil gave me strength, hope, and the tools I needed to cope during an emotional time in my life." },
+        { name: "Wendel Naidoo", text: "Neil helped me uncover and process emotions I had blocked for years. His patience and expertise were life-changing." },
+        { name: "Martin Scheepers", text: "I was at my lowest, and Neil helped me make sense of my actions and rebuild my life." },
+        { name: "Don Lelong", text: "Going to Neil was the best decision. He changed my life for the better, and I’m forever grateful." },
+        { name: "Ntombifuthi Nonjola", text: "Neil supported me at my lowest point. His sessions helped me heal, and I’m truly grateful." },
+        { name: "Michelle Poole", text: "Incredible! So empathetic and caring. He truly goes above and beyond for his patients." },
+        { name: "Taryn Newport", text: "Best psychologist around! I couldn't recommend him enough. Truly remarkable." },
+        { name: "Kyle Stevenson", text: "Without a doubt, the best psychologist I've ever worked with. Absolutely phenomenal!" }
+    ];
+
+    function updateReview() {
+        const randomIndex = Math.floor(Math.random() * reviews.length);
+        document.getElementById("reviewerName").textContent = reviews[randomIndex].name;
+        document.getElementById("reviewText").textContent = reviews[randomIndex].text;
+    }
+
+    updateReview();
+
+    setInterval(updateReview, 120000);
+
+
         
 </script>
 </body>
