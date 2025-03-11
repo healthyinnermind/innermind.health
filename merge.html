@@ -162,6 +162,56 @@
             z-index: 198;
         }
 
+
+.logo-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    animation: fadeOutContainer 5s ease-in-out forwards;
+}
+
+.logo-container img {
+    width: 111px;
+    animation: fadeInOutLogo 5s ease-in-out forwards;
+}
+
+@keyframes fadeOutContainer {
+    0% {
+        opacity: 1;
+    }
+    66% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+@keyframes fadeInOutLogo {
+    0% {
+        opacity: 0;
+    }
+    33% {
+        opacity: 1;
+    }
+    55% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        pointer-events: none;
+    }
+}
+
+    
 .profile-img {
     width: 222px;
     height: 222px;
