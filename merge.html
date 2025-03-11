@@ -647,6 +647,107 @@ p {
             margin-top: 4px;
         }
         
+}
+
+   .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 20px;
+        border-radius: 33px;
+        text-align: center;
+        width: 80%;
+        max-width: 400px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+    .modal-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin-top: 20px;
+    }
+
+    .location-btn {
+        text-decoration: none;
+        background: #007BFF;
+        color: white;
+        padding: 10px;
+        border-radius: 22px;
+        font-size: 18px;
+        font-weight: bold;
+        transition: background 0.3s ease;
+        font-family: 'Montserrat', sans-serif;
+        letter-spacing: 2px;
+    }
+
+    .location-btn:hover {
+        background: #0056b3;
+    }
+
+
+ .location-icon {
+    width: 44px;
+    height: 44px;
+    fill: #007BFF;
+    opacity: 0.4;
+}
+
+ #appointmentBtn {
+    display: block;
+    margin: 15px 15px;
+}
+
+   
+   .icon svg {
+    fill: white;
+    width: 28px;
+    height: 28px;
+}  
+
+               .material-icons {
+    font-size: 28px;
+    color: white;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.material-icons:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+    .loader {
+        border: 16px solid #f3f3f3;
+        border-top: 16px solid #007BFF;
+        border-radius: 50%;
+        width: 66px;
+        height: 66px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
     
    </style> 
