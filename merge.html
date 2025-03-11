@@ -186,7 +186,6 @@ header h1 {
     margin: 0;
     font-weight: 600;
     letter-spacing: 1px;
-    z-index: -2;
     color: rgba(0, 0, 0, 0);
 }
 
@@ -502,32 +501,6 @@ p {
     }
 }
 
-.black-element {
-    background-color: black;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    z-index: 99999;
-    opacity: 1;
-    animation: fadeOut 5s forwards;
-    animation-delay: 1s;
-  pointer-events: none;
-}
-
-@keyframes fadeOut {
-    0% {
-        opacity: 1;
-    }
-    20% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
-}
-
     .appointment-button {
         display: inline-block;
         padding: 10px 20px;
@@ -573,7 +546,9 @@ p {
     <img src="Whatsapp.svg" alt="WhatsApp">
 </a>
     
-<div class="black-element"></div>
+    <div class="logo-container" id="logo-container">
+        <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
+    </div>
     
     <div class="background-video">
         <video autoplay loop muted playsinline>
