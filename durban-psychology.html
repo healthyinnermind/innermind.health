@@ -815,23 +815,28 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-    const faqHeaders = document.querySelectorAll('#faq h3');
+    
+const faqHeaders = document.querySelectorAll('#faq h3');
 
-    faqHeaders.forEach(header => {
-        header.addEventListener('click', function () {
-            const paragraph = this.nextElementSibling;
-            const isDisplayed = paragraph.style.display === 'block';
+faqHeaders.forEach(header => {
+    header.addEventListener('click', function () {
+        const paragraph = this.nextElementSibling;
+        const isDisplayed = paragraph.style.display === 'block';
 
-            faqHeaders.forEach(otherHeader => {
-                const otherParagraph = otherHeader.nextElementSibling;
-                if (otherParagraph !== paragraph) {
-                    otherParagraph.style.display = 'none';
-                }
-            });
-
-            paragraph.style.display = isDisplayed ? 'none' : 'block';
+        faqHeaders.forEach(otherHeader => {
+            const otherParagraph = otherHeader.nextElementSibling;
+            if (otherParagraph !== paragraph) {
+                otherParagraph.style.display = 'none';
+            }
         });
+
+        paragraph.style.display = isDisplayed ? 'none' : 'block';
+
+        setTimeout(() => {
+            ScrollTrigger.refresh();
+        }, 300);
     });
+});
 });               
 
 
