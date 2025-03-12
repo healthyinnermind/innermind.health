@@ -1092,8 +1092,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
         ScrollTrigger.create({
             trigger: section,
-            start: "top 70%",
-            end: "bottom 30%",
+            start: "top 60%",
+            end: "bottom 40%",
             onEnter: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
             onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
             onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
