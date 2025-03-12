@@ -8,7 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Neil Clayton | Clinical Psychologist in Durban | Therapy & Counseling</title>
+    <title>Neil Clayton | Clinical Psychologist in Durban | Therapy & Counselling</title>
    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -155,6 +155,15 @@
             object-fit: cover;
             object-position: center 77%;
         }
+    
+        .book-here {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
 
 .logo-container {
     position: fixed;
@@ -222,15 +231,12 @@
 }
 
 header {
-   position: fixed; 
     background: rgba(0, 0, 0, 0);
     color: #fff;
     text-align: center;
 }
 
 header h1 {
-   
-   position: fixed; 
     font-size: 1em;
     margin: 0;
     color: rgba(0, 0, 0, 0);
@@ -475,11 +481,9 @@ p {
 
   .introsectionbreak {
     position: relative;
+    margin: auto;
     width: 1vw;
-    background-color: red; 
-   
-        border-radius: 5px;
-   opacity: 0;  
+    background-color: transparent; 
     height: 50vh; 
         }
     
@@ -488,7 +492,7 @@ p {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            text-align:     center;
+            text-align: center;
             width: 100vw;
             line-height: 1;
         }
@@ -804,6 +808,10 @@ p {
 <body>
 
     
+<div class="   
+     book-here" id="openModal">
+</div>
+    
     <div class="logo-container" id="logo-container">
         <img src="logoneil.png" alt="Neil Clayton Psychologist Logo" id="logo">
     </div>
@@ -856,13 +864,12 @@ p {
 
     <main>
 
-        <section id="1" class="section">
+        <section id="title" class="section">
             <div class="container">        
             <div class="introsectionbreak">
             </div>
-            </div>
+                            </div>
         </section>
-
         
         <section id="quote" class="section">
             <div class="container">
@@ -978,8 +985,8 @@ p {
                 <p>
                     I am ‘solution focused’ and practice a range of psychodynamic therapies, mindfulness approaches,
                     and behavioural interventions. 
-                    <br><br>I also specialise in BWRT (Brain Working Recursive Therapy), which is
-                    an effective tool in treating a wide range of mental health conditions.
+                    <br><br>I also specialise in BWRT (Brain Working Recursive Therapy), which is an effective tool in treating a wide range of mental health conditions.
+                    <br><br>Brain Working Recursive Therapy (BWRT) is a modern evidence-based psychotherapy that reprograms harmful thought patterns causing emotional distress. By interrupting and replacing negative neural loops with healthier responses, BWRT facilitates rapid, lasting change. It is brief, non-invasive, and doesn’t require revisiting past trauma, making it an effective, client-centered approach.
                 </p>
             </div>
         </section>
@@ -1301,7 +1308,7 @@ p {
         const mapFrame = document.getElementById("mapFrame");
         const locationAddress = document.getElementById("locationAddress");
         const appointmentBtn = document.getElementById("appointmentBtn");
- const openModal = document.querySelectorAll("#openModal, #openmodal2");
+        const openModal = document.querySelectorAll("#openModal, #openmodal2");
         const bookingModal = document.getElementById("bookingModal");
 
         function openLocationModal(mapURL, address, appointmentLink) {
