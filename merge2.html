@@ -1258,6 +1258,69 @@ faqHeaders.forEach(header => {
 
     setInterval(updateReview, 120000);
 
+        //modal logic
+
+         document.addEventListener("DOMContentLoaded", function () {
+        const locationModal = document.getElementById("locationModal");
+        const mapFrame = document.getElementById("mapFrame");
+        const locationAddress = document.getElementById("locationAddress");
+        const appointmentBtn = document.getElementById("appointmentBtn");
+ const openModal = document.querySelectorAll("#openModal, #openmodal2");
+        const bookingModal = document.getElementById("bookingModal");
+
+        function openLocationModal(mapURL, address, appointmentLink) {
+            mapFrame.src = mapURL;
+            locationAddress.innerText = address;
+            appointmentBtn.href = appointmentLink;
+            locationModal.style.display = "flex";
+        }
+
+        document.querySelectorAll(".open-location-modal").forEach(button => {
+            button.addEventListener("click", function (event) {
+                event.preventDefault();
+                const location = this.getAttribute("data-location");
+                if (location === "westville") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d27690.13322794686!2d30.912925999999995!3d-29.827723999999996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700337d30105b%3A0xc961cbea53f53d2b!2s2%20Knoll%20Rd%2C%20Grayleigh%2C%20Westville%2C%203629%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1739011907910!5m2!1sen!2sus&controls=0",
+                        "2 Knoll Rd, Grayleigh, Westville",
+                        "https://app.elle.health/book-appointment?practice=bnjTO4CJNEsMWTCZ7taQiw%3D%3D"
+                    );
+                } else if (location === "bluff") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.6469313054745!2d31.023779476313745!3d-29.903272424745683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7a923ca92f11b%3A0x16a27cd2b3fb2c62!2s297%20Lighthouse%20Rd%2C%20Fynnlands%2C%20Bluff%2C%204052!5e0!3m2!1sen!2sza!4v1739006295260!5m2!1sen!2sza",
+                        "297 Lighthouse Rd, Fynnlands, Bluff",
+                        "https://app.elle.health/book-appointment?practice=bnjTO4CJNEsMWTCZ7taQiw%3D%3D"
+                    );
+                }
+            });
+        });
+
+
+
+openModal.forEach(function(openModal) {
+    openModal.addEventListener("click", function () {
+        bookingModal.style.display = "flex";
+    });
+});
+        const loadingSpinner = document.getElementById("loadingSpinner");
+
+        mapFrame.onload = function () {
+            loadingSpinner.style.display = "none";
+        };
+
+        mapFrame.onerror = function () {
+            loadingSpinner.innerHTML = "Failed to load map. Please try again later.";
+            loadingSpinner.style.color = "red";
+        };
+    });
+
+    function closeModal(event, modal) {
+    if (event.target === modal) {
+        modal.style.display = "none";
+    }
+}
+
+        
 
         
 </script>
