@@ -1147,8 +1147,9 @@ margin: auto;
 
     
     <script>
-               
-document.addEventListener('DOMContentLoaded', function () {
+
+        
+    document.addEventListener('DOMContentLoaded', function () {
     gsap.registerPlugin(ScrollTrigger);
 
     const sections = gsap.utils.toArray(".section");
@@ -1156,10 +1157,18 @@ document.addEventListener('DOMContentLoaded', function () {
     sections.forEach(section => {
         gsap.set(section, { opacity: 0, y: 50 });
 
+        let start = "top 60%";
+        let end = "bottom 40%";
+
+        if (section.id === "aboutimage") {
+            start = "top 50%";
+            end = "bottom 50%";
+        }
+
         ScrollTrigger.create({
             trigger: section,
-            start: "top 60%",
-            end: "bottom 40%",
+            start: start,
+            end: end,
             onEnter: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
             onLeave: () => gsap.to(section, { opacity: 0, y: 50, duration: 0.7, ease: "power2.out" }),
             onEnterBack: () => gsap.to(section, { opacity: 1, y: 0, duration: 0.7, ease: "power2.out" }),
@@ -1181,28 +1190,27 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
 
-    
-const faqHeaders = document.querySelectorAll('#faq h3');
+    const faqHeaders = document.querySelectorAll('#faq h3');
 
-faqHeaders.forEach(header => {
-    header.addEventListener('click', function () {
-        const paragraph = this.nextElementSibling;
-        const isDisplayed = paragraph.style.display === 'block';
+    faqHeaders.forEach(header => {
+        header.addEventListener('click', function () {
+            const paragraph = this.nextElementSibling;
+            const isDisplayed = paragraph.style.display === 'block';
 
-        faqHeaders.forEach(otherHeader => {
-            const otherParagraph = otherHeader.nextElementSibling;
-            if (otherParagraph !== paragraph) {
-                otherParagraph.style.display = 'none';
-            }
+            faqHeaders.forEach(otherHeader => {
+                const otherParagraph = otherHeader.nextElementSibling;
+                if (otherParagraph !== paragraph) {
+                    otherParagraph.style.display = 'none';
+                }
+            });
+
+            paragraph.style.display = isDisplayed ? 'none' : 'block';
+
+            setTimeout(() => {
+                ScrollTrigger.refresh();
+            }, 300);
         });
-
-        paragraph.style.display = isDisplayed ? 'none' : 'block';
-
-        setTimeout(() => {
-            ScrollTrigger.refresh();
-        }, 300);
     });
-});
 
     gsap.to(".container2, .text-container", {
         opacity: 0, 
@@ -1214,11 +1222,7 @@ faqHeaders.forEach(header => {
             scrub: true
         }
     });
-
-    
-});               
-
-
+});
         
     document.getElementById("contact-form").addEventListener("submit", function(event) {
     event.preventDefault();
