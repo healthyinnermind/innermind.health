@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+    xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+    xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+
+    <url>
+        <loc>https://innermind.health</loc>
+        <lastmod>2025-03-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1.0</priority>
+    </url>
+    <url>
+        <loc>https://innermind.health/durban-psychology</loc>
+        <lastmod>2025-03-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://innermind.health/durban-therapist</loc>
+        <lastmod>2025-03-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
+        <loc>https://innermind.health/durban-psychologist</loc>
+        <lastmod>2025-03-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.9</priority>
+    </url>
+    <url>
+        <loc>https://innermind.health</loc>
+        <lastmod>2025-03-06</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.9</priority>
+        <video:video>
+            <video:content_loc>https://innermind.health/videos/durban-psychology-neil-clayton.mp4</video:content_loc>
+            <video:title>Durban Psychology with Neil Clayton</video:title>
+            <video:description>Neil Clayton Durban Psychologist</video:description>
+            <video:thumbnail_loc>https://innermind.health/thumbnail.jpg</video:thumbnail_loc>
+            <video:player_loc>https://innermind.health/durban-psychology-neil-clayton-player</video:player_loc>
+            <video:duration>2</video:duration>
+            <video:publication_date>2025-03-06</video:publication_date>
+        </video:video>
+    </url>
+</urlset>
