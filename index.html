@@ -335,6 +335,7 @@ main {
 #ketamine h2,
 #online h2,
 #aboutSilindile h2,
+#aboutBukelwa h2,
 #faq h2,
 #contact h2 {
     color: #29ABE2;
@@ -740,6 +741,7 @@ p {
     #online h2,
     #faq h2,
     #aboutSilindile h2,
+    #aboutBukelwa h2,
     #contact h2 {
         font-size: 2em;
     }
@@ -901,7 +903,7 @@ p {
         
 <section id="about" class="section image-bg">
     <div class="container">
-                <h2>About Me</h2>
+                <h2>About Neil</h2>
                 <p>
                     I am deeply interested in how people think, feel, and behave. 
                     <br><br>I appreciate the journey of self
@@ -917,6 +919,33 @@ p {
     </div>
 </section>
         
+<section id="bukelwaimage" class="section image-bg">
+    <div class="container">
+        <img src="bukelwa1.jpg" alt="bukelwa2" class="profile-img">
+    </div>
+</section>
+        
+<section id="aboutBukelwa" class="section image-bg">
+    <div class="container">
+                <h2>About Bukelwa</h2>
+                <p>
+I am a Counselling Psychologist, dedicated to providing compassionate, evidence-based
+psychological care to individuals. 
+                </p>
+                <p>
+I believe that every person holds the capacity for growth,
+healing, and resilience, and my role is to walk alongside them as they navigate challenges,
+build insight, and strengthen their sense of self. I work collaboratively, drawing on integrative
+therapeutic techniques that are tailored to each client’s unique needs, context, and lived
+reality. I have experience working with adolescents and adults. At the heart of my work is a
+passion for helping people reconnect with their strengths, develop healthier coping
+mechanisms, and move towards more fulfilling and empowered lives. I am committed to a
+culturally sensitive practice and supporting clients from diverse backgrounds with empathy
+and respect.
+                </p>
+    </div>
+</section>
+
 
 <section id="Silindileimage" class="section image-bg">
     <div class="container">
@@ -1193,10 +1222,9 @@ through accessible and impactful psychological services.
         </svg>
         <div class="modal-buttons">
             <button class="location-btn open-location-modal" data-location="westville">NEIL WESTVILLE</button>
-            <button class="location-btn open-location-modal" data-location="bluff">NEIL THE BLUFF</button>
-<button class="location-btn" onclick="window.open('https://mygc.co.za/external/diary/c2b322a8-80b9-4e43-ba20-d4a226f7398d', '_blank')">
-   SILINDILE THE BLUFF
-</button>
+            <button class="location-btn open-location-modal" data-location="bluff1">NEIL THE BLUFF</button>
+            <button class="location-btn open-location-modal" data-location="bluff2">SILINDILE THE BLUFF</button>
+            <button class="location-btn open-location-modal" data-location="westville2">BUKELWA WESTVILLE</button>
                    </div>
     </div>
 </div>
@@ -1373,11 +1401,23 @@ through accessible and impactful psychological services.
                         "2 Knoll Rd, Grayleigh, Westville",
                         "https://mygc.co.za/external/diary/505e92bf-ddb4-41c9-8bc5-12d81ffae676"
                     );
-                } else if (location === "bluff") {
+                } else if (location === "bluff1") {
                     openLocationModal(
                         "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.6469313054745!2d31.023779476313745!3d-29.903272424745683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7a923ca92f11b%3A0x16a27cd2b3fb2c62!2s297%20Lighthouse%20Rd%2C%20Fynnlands%2C%20Bluff%2C%204052!5e0!3m2!1sen!2sza!4v1739006295260!5m2!1sen!2sza",
                         "297 Lighthouse Rd, Fynnlands, Bluff",
                         "https://mygc.co.za/external/diary/fcc81486-178c-4cfe-ad19-fcc7d0f93aa1"
+                    );
+                } else if (location === "bluff2") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3458.6469313054745!2d31.023779476313745!3d-29.903272424745683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef7a923ca92f11b%3A0x16a27cd2b3fb2c62!2s297%20Lighthouse%20Rd%2C%20Fynnlands%2C%20Bluff%2C%204052!5e0!3m2!1sen!2sza!4v1739006295260!5m2!1sen!2sza",
+                        "297 Lighthouse Rd, Fynnlands, Bluff",
+                        "https://mygc.co.za/external/diary/c2b322a8-80b9-4e43-ba20-d4a226f7398d"
+                    );
+                } else if (location === "westville2") {
+                    openLocationModal(
+                        "https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d27690.13322794686!2d30.912925999999995!3d-29.827723999999996!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1ef700337d30105b%3A0xc961cbea53f53d2b!2s2%20Knoll%20Rd%2C%20Grayleigh%2C%20Westville%2C%203629%2C%20South%20Africa!5e0!3m2!1sen!2sus!4v1739011907910!5m2!1sen!2sus&controls=0",
+                        "2 Knoll Rd, Grayleigh, Westville",
+                        "https://mygc.co.za/external/diary/304d3ff1-db79-43aa-95c1-ae0f55d76682"
                     );
                 }
             });
