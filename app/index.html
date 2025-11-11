@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>innermind.health</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="light">
+  <header>
+    <div class="logo">innermind.health</div>
+    <div class="header-actions">
+      <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">
+        <span class="material-icons" aria-hidden>settings</span>
+      </button>
+      <div class="toggle-wrap" title="Toggle theme">
+        <div id="themeSwitch" class="switch" role="switch" aria-checked="false" data-on="false" tabindex="0">
+          <div class="knob"></div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:12px;width:100%">
+      <div class="center-row" role="toolbar" aria-label="Main actions">
+        <button id="btnNew" class="action" title="New entry" aria-label="New entry">
+          <span class="material-icons" aria-hidden>edit_note</span>
+        </button>
+        <button id="btnSearch" class="action" title="Search" aria-label="Search entries">
+          <span class="material-icons" aria-hidden>search</span>
+        </button>
+        <button id="btnJournal" class="action" title="Journal" aria-label="Journal entries">
+          <span class="material-icons" aria-hidden>menu_book</span>
+          <span id="journalBadge" class="notification-badge" style="display:none">0</span>
+        </button>
+      </div>
+
+      <div id="moduleNew" class="module" aria-hidden="true">
+        <div class="pill" role="region" aria-label="New entry input">
+          <textarea id="entryText" placeholder="Please share . . ." aria-label="Entry text" rows="3"></textarea>
+          <button class="mic-btn" id="mic" title="Voice to text" aria-label="Microphone">
+            <span class="material-icons">mic</span>
+          </button>
+          <button id="save" class="save-btn" title="Save entry" aria-label="Save entry">
+            <span class="material-icons" aria-hidden>save</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="moduleSearch" class="module" aria-hidden="true">
+        <div class="pill" role="search" aria-label="Search entries">
+          <input id="searchText" class="search-input" placeholder="Search your thoughts..." />
+          <button id="clearSearch" title="Clear search" style="background:transparent;border:0;cursor:pointer;padding:8px;border-radius:8px;transition:background 0.2s ease">
+            <span class="material-icons" style="color:var(--accent)">clear</span>
+          </button>
+        </div>
+      </div>
+
+      <div id="statsContainer" style="width:min(720px,92%);display:none"></div>
+      <div id="entries" class="entries" aria-live="polite"></div>
+    </div>
+  </main>
+
+  <div id="settingsModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Settings</div>
+        <button id="closeSettings" class="modal-close"><span class="material-icons">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Profile</label>
+          <div style="display:flex;gap:12px;align-items:center">
+            <div id="profileDisplay" style="flex:1;color:var(--muted);opacity:.9">—</div>
+            <button id="editProfileBtn" class="btn-secondary" style="flex:0 0 auto">Edit</button>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Theme</label>
+          <div style="display:flex;gap:12px">
+            <label style="flex:1;cursor:pointer">
+              <input type="radio" name="theme" value="light" style="margin-right:8px">
+              Light
+            </label>
+            <label style="flex:1;cursor:pointer">
+              <input type="radio" name="theme" value="dark" style="margin-right:8px">
+              Dark
+            </label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Auto-save</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="autoSaveCheck">
+            <span style="font-size:14px">Save automatically while typing</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Online Syncing</label>
+          <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+            <input type="checkbox" id="onlineSyncCheck" checked>
+            <span style="font-size:14px"> Online syncing</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Data Management</label>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <button id="exportBtn" class="btn-secondary" style="flex:1">Export</button>
+            <button id="clearBtn" class="btn-secondary danger" style="flex:1">Clear All</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="profileModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Set your profile name</div>
+        <button id="closeProfile" class="modal-close"><span class="material-icons">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Username</label>
+          <input id="profileNameInput" class="form-input" placeholder="Enter a display name" />
+        </div>
+        <div style="display:flex;gap:12px">
+          <button id="saveProfileBtn" class="btn-primary" style="flex:1">Save</button>
+          <button id="cancelProfileBtn" class="btn-secondary" style="flex:1">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="editModal" class="modal" aria-hidden="true">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="modal-title">Edit Entry</div>
+        <button id="closeEdit" class="modal-close"><span class="material-icons">close</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Entry Text</label>
+          <textarea id="editText" class="form-input form-textarea"></textarea>
+        </div>
+        <button id="saveEdit" class="btn-primary" style="width:100%">Save Changes</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">
+    <span class="material-icons">check_circle</span>
+    <span id="toastMessage">Entry saved!</span>
+  </div>
+
+<script>
+
+const GITHUB_API_CONTENTS = 'https://api.github.com/repos/tj-db/innermind/contents/ENTRIES';
+const CACHE_KEY = 'innermind.entries.cache.v3';
+const ETAG_KEY = 'innermind.entries.etag.v3';
+const PENDING_KEY = 'innermind.pending.v3';
+const SETTINGS_KEY = 'innermind.settings.v3';
+const THEME_KEY = 'innermind.theme.v3';
+const PROFILE_KEY = 'innermind.profile.v1';
+
+const FORM_ID = '1FAIpQLSfDfwZrr7Wc3CrxxDSzS0zYc9T7ioBZ_sQyMbTht1psMrjfZg';
+const FORM_ENDPOINT = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
+const FORM_FIELDS = { name: 'entry.2138377113', text: 'entry.1572331366' };
+const APPS_SCRIPT_PROXY = '';
+
+const body = document.body;
+const btnNew = document.getElementById('btnNew');
+const btnSearch = document.getElementById('btnSearch');
+const btnJournal = document.getElementById('btnJournal');
+const journalBadge = document.getElementById('journalBadge');
+const moduleNew = document.getElementById('moduleNew');
+const moduleSearch = document.getElementById('moduleSearch');
+const moduleEntries = document.getElementById('entries');
+const entryText = document.getElementById('entryText');
+const saveBtn = document.getElementById('save');
+const searchText = document.getElementById('searchText');
+const clearSearch = document.getElementById('clearSearch');
+const settingsBtn = document.getElementById('settingsBtn');
+const settingsModal = document.getElementById('settingsModal');
+const closeSettings = document.getElementById('closeSettings');
+const editModal = document.getElementById('editModal');
+const closeEdit = document.getElementById('closeEdit');
+const editText = document.getElementById('editText');
+const saveEdit = document.getElementById('saveEdit');
+const autoSaveCheck = document.getElementById('autoSaveCheck');
+const onlineSyncCheck = document.getElementById('onlineSyncCheck');
+const themeSwitch = document.getElementById('themeSwitch');
+const exportBtn = document.getElementById('exportBtn');
+const clearBtn = document.getElementById('clearBtn');
+const toast = document.getElementById('toast');
+const toastMessage = document.getElementById('toastMessage');
+
+const profileModal = document.getElementById('profileModal');
+const profileNameInput = document.getElementById('profileNameInput');
+const saveProfileBtn = document.getElementById('saveProfileBtn');
+const closeProfile = document.getElementById('closeProfile');
+const cancelProfileBtn = document.getElementById('cancelProfileBtn');
+const profileDisplay = document.getElementById('profileDisplay');
+const editProfileBtn = document.getElementById('editProfileBtn');
+
+let entries = [];
+let pending = [];
+let settings = { autoSave: false, onlineSync: true };
+let profileName = '';
+
+const uid = () => 'id_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+function showToast(msg) { toastMessage.textContent = msg; toast.classList.add('show'); setTimeout(()=>toast.classList.remove('show'),3000); }
+
+function loadFromCache() {
+  try { entries = JSON.parse(localStorage.getItem(CACHE_KEY)) || []; } catch(e){ entries = []; }
+}
+function saveToCache() {
+  localStorage.setItem(CACHE_KEY, JSON.stringify(entries));
+  updateNotificationBadge();
+}
+function loadPending() {
+  try { pending = JSON.parse(localStorage.getItem(PENDING_KEY)) || []; } catch(e){ pending = []; }
+  updateNotificationBadge();
+}
+function savePending() {
+  localStorage.setItem(PENDING_KEY, JSON.stringify(pending));
+  updateNotificationBadge();
+}
+function loadSettings() {
+  try { settings = JSON.parse(localStorage.getItem(SETTINGS_KEY)) || { autoSave:false, onlineSync:true }; } catch(e){ settings = { autoSave:false, onlineSync:true }; }
+  autoSaveCheck.checked = settings.autoSave;
+  onlineSyncCheck.checked = settings.onlineSync;
+  const savedTheme = localStorage.getItem(THEME_KEY) || 'light';
+  applyTheme(savedTheme, false);
+  document.querySelectorAll('input[name="theme"]').forEach(r => r.checked = r.value === savedTheme);
+}
+function persistSettings() { localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings)); }
+function applyTheme(name, save=true) {
+  body.setAttribute('data-theme', name);
+  themeSwitch.setAttribute('data-on', name === 'dark' ? 'true' : 'false');
+  themeSwitch.setAttribute('aria-checked', name === 'dark' ? 'true' : 'false');
+  if (save) localStorage.setItem(THEME_KEY, name);
+}
+function updateNotificationBadge() {
+  const count = pending.length;
+  if (count > 0) {
+    journalBadge.textContent = count;
+    journalBadge.style.display = 'block';
+  } else {
+    journalBadge.style.display = 'none';
+  }
+}
+
+/* Frontmatter parser */
+function parseFrontMatter(text) {
+  if (!text || typeof text !== 'string') return {};
+  const fmMatch = text.match(/^-{3}\s*([\s\S]*?)\s*-{3}/);
+  if (!fmMatch) return {};
+  const fm = fmMatch[1].replace(/\r\n/g, '\n');
+  const lines = fm.split('\n');
+  const result = {};
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const m = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+    if (!m) continue;
+    const key = m[1];
+    let val = m[2];
+    if (val === '|') {
+      const buf = [];
+      let j = i + 1;
+      while (j < lines.length && (lines[j].startsWith(' ') || lines[j].startsWith('\t') || lines[j].trim() === '')) {
+        buf.push(lines[j].replace(/^\t|^\s{0,2}/, ''));
+        j++;
+      }
+      result[key] = buf.join('\n').trim();
+      i = j - 1;
+    } else {
+      result[key] = val;
+    }
+  }
+  if (result.client && typeof result.client === 'string') result.client = result.client.trim();
+  return result;
+}
+
+function parseDateFromFilename(name) {
+  if (!name || typeof name !== 'string') return '';
+  const m = name.match(/^(\d{4}-\d{2}-\d{2}T\d{2}-\d{2}-\d{2}-\d+Z)/);
+  if (!m) return '';
+  const raw = m[1];
+  const [datePart, timePartWithZ] = raw.split('T');
+  const timePart = timePartWithZ.slice(0, -1);
+  const tParts = timePart.split('-');
+  if (tParts.length >= 4) {
+    const hh = tParts[0].padStart(2,'0');
+    const mm = tParts[1].padStart(2,'0');
+    const ss = tParts[2].padStart(2,'0');
+    const ms = tParts.slice(3).join('');
+    return `${datePart}T${hh}:${mm}:${ss}.${ms}Z`;
+  }
+  return '';
+}
+
+function formatLocalDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  if (isNaN(d)) return iso;
+  return new Intl.DateTimeFormat(navigator.language || 'en-US', {
+    weekday: 'short', year: 'numeric', month: 'short', day: 'numeric',
+    hour: '2-digit', minute: '2-digit'
+  }).format(d);
+}
+
+function loadProfile() {
+  try { profileName = (localStorage.getItem(PROFILE_KEY) || '').trim(); } catch(e){ profileName = ''; }
+  updateProfileDisplay();
+}
+function saveProfile(name) {
+  profileName = (name || '').trim();
+  if (profileName) localStorage.setItem(PROFILE_KEY, profileName);
+  else localStorage.removeItem(PROFILE_KEY);
+  updateProfileDisplay();
+}
+function updateProfileDisplay() {
+  profileDisplay.textContent = profileName ? profileName : 'No profile set';
+}
+function showProfileModal(show=true) {
+  profileModal.style.display = show ? 'flex' : 'none';
+  profileModal.setAttribute('aria-hidden', show ? 'false' : 'true');
+  if (show) {
+    profileNameInput.value = profileName || '';
+    setTimeout(()=>profileNameInput.focus(), 50);
+  }
+}
+
+async function fetchEntriesFromGitHub() {
+  if (!profileName) {
+    entries = [];
+    renderEntries(searchText.value);
+    return;
+  }
+
+  const cached = JSON.parse(localStorage.getItem(CACHE_KEY) || 'null');
+  const etag = localStorage.getItem(ETAG_KEY);
+  const headers = {};
+  if (etag) headers['If-None-Match'] = etag;
+  try {
+    const res = await fetch(GITHUB_API_CONTENTS, { headers });
+    if (res.status === 304) {
+      const cachedList = cached || [];
+      entries = (cachedList || []).filter(e => {
+        const client = (e.client || '').toString().trim();
+        return client && client.toLowerCase() === profileName.toLowerCase();
+      });
+      renderEntries(searchText.value);
+      return;
+    }
+    if (!res.ok) throw new Error('GitHub API error ' + res.status);
+    const list = await res.json();
+    const files = await Promise.all(list.map(async f => {
+      try {
+        if (!f.download_url) return null;
+        const r = await fetch(f.download_url);
+        if (!r.ok) return null;
+        const text = await r.text();
+        const parsed = parseFrontMatter(text);
+        const entryBody = parsed.entry || parsed.text || '';
+        const feedback = parsed.feedback || '';
+        const clientName = (parsed.client || '').toString().trim();
+        let dateISO = parsed.date || parsed.timestamp || '';
+        if (!dateISO) dateISO = parseDateFromFilename(f.name) || '';
+        if (!clientName) return null;
+        if (clientName.toLowerCase() !== profileName.toLowerCase()) return null;
+        return {
+          id: f.name,
+          path: f.path,
+          rawText: text,
+          client: clientName,
+          dateISO,
+          dateTitle: formatLocalDate(dateISO),
+          entryText: entryBody,
+          feedback,
+          sha: f.sha,
+          updatedAt: f.sha
+        };
+      } catch (e) { return null; }
+    }));
+    entries = files.filter(Boolean).sort((a, b) => {
+      if (a.dateISO && b.dateISO) return new Date(b.dateISO) - new Date(a.dateISO);
+      if (a.dateISO) return -1;
+      if (b.dateISO) return 1;
+      return b.id.localeCompare(a.id);
+    });
+    localStorage.setItem(CACHE_KEY, JSON.stringify(entries));
+    const newEtag = res.headers.get('etag');
+    if (newEtag) localStorage.setItem(ETAG_KEY, newEtag);
+    renderEntries(searchText.value);
+  } catch (err) {
+    console.error('Failed to fetch entries from GitHub', err);
+    const cachedList = cached || [];
+    entries = (cachedList || []).filter(e => {
+      const client = (e.client || '').toString().trim();
+      return client && client.toLowerCase() === profileName.toLowerCase();
+    });
+    renderEntries(searchText.value);
+  }
+}
+
+function renderEntries(filter = '') {
+  moduleEntries.style.display = 'flex';
+  moduleEntries.innerHTML = '';
+  const q = (filter || '').toLowerCase();
+  const list = entries.slice().filter(e => {
+    if (!q) return true;
+    return (e.entryText || '').toLowerCase().includes(q)
+      || (e.feedback || '').toLowerCase().includes(q)
+      || (e.client || '').toLowerCase().includes(q)
+      || (e.id || '').toLowerCase().includes(q);
+  });
+  if (list.length === 0) {
+    moduleEntries.innerHTML = `<div class="empty-state"><div class="material-icons">mood</div><p>${filter ? 'No matching entries found' : 'No entries yet for this profile.'}</p></div>`;
+    return;
+  }
+  list.forEach(entry => {
+    const el = document.createElement('div'); el.className = 'entry';
+
+    const meta = document.createElement('div'); meta.className = 'meta';
+    const title = document.createElement('div'); title.className = 'title';
+    title.textContent = entry.dateTitle || entry.dateISO || entry.id || 'Entry';
+    const clientEl = document.createElement('div'); clientEl.className = 'date';
+    clientEl.textContent = entry.client ? entry.client : (entry.updatedAt ? `sha:${entry.updatedAt.slice(0,7)}` : '');
+    meta.appendChild(title); meta.appendChild(clientEl);
+
+    const content = document.createElement('div'); content.className = 'content';
+    content.textContent = entry.entryText || '';
+
+    let feedbackWrap = null;
+    if (entry.feedback && entry.feedback.toString().trim()) {
+      feedbackWrap = document.createElement('div');
+      feedbackWrap.style.marginTop = '8px';
+      const fbLabel = document.createElement('div'); fbLabel.className = 'date'; fbLabel.textContent = 'Feedback';
+      const fbContent = document.createElement('div'); fbContent.className = 'content'; fbContent.textContent = entry.feedback;
+      feedbackWrap.appendChild(fbLabel);
+      feedbackWrap.appendChild(fbContent);
+    }
+
+    const actions = document.createElement('div'); actions.className = 'actions';
+    const expand = document.createElement('button'); expand.className = 'btn'; expand.textContent = 'Read More';
+    expand.onclick = () => {
+      content.classList.toggle('expanded');
+      if (feedbackWrap) {
+        const fbContent = feedbackWrap.querySelector('.content');
+        if (fbContent) fbContent.classList.toggle('expanded');
+      }
+      expand.textContent = content.classList.contains('expanded') ? 'Show Less' : 'Read More';
+    };
+    const edit = document.createElement('button'); edit.className = 'btn'; edit.textContent = 'Edit';
+    edit.onclick = () => showToast('Editing remote GitHub entries is not supported from the client');
+    const del = document.createElement('button'); del.className = 'btn danger'; del.textContent = 'Delete';
+    del.onclick = () => showToast('Deleting remote GitHub entries is not supported from the client');
+    actions.appendChild(expand); actions.appendChild(edit); actions.appendChild(del);
+
+    el.appendChild(meta);
+    el.appendChild(content);
+    if (feedbackWrap) el.appendChild(feedbackWrap);
+    el.appendChild(actions);
+    moduleEntries.appendChild(el);
+  });
+}
+
+function queueSubmission(text) {
+  const name = profileName || 'Client';
+  const item = { id: uid(), name, text, ts: Date.now(), attempts: 0 };
+  pending.push(item);
+  savePending();
+  tryProcessPending();
+  showToast('Queued for submission');
+}
+
+async function tryProcessPending() {
+  if (!navigator.onLine) return;
+  if (!pending.length) return;
+  if (!settings.onlineSync) return;
+  const ops = [...pending];
+  for (const op of ops) {
+    let ok = false;
+    if (APPS_SCRIPT_PROXY) {
+      try {
+        const r = await fetch(APPS_SCRIPT_PROXY, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: op.name, text: op.text })
+        });
+        ok = r.ok;
+      } catch (e) { ok = false; }
+    }
+    if (!ok) {
+      try {
+        const form = new FormData();
+        form.append(FORM_FIELDS.name, op.name);
+        form.append(FORM_FIELDS.text, op.text);
+        await fetch(FORM_ENDPOINT, { method: 'POST', body: form, mode: 'no-cors' });
+        ok = true;
+      } catch (e) { ok = false; }
+    }
+    if (ok) {
+      pending = pending.filter(p => p.id !== op.id);
+      savePending();
+      showToast('Submitted entry');
+      // refresh entries after a short delay to allow backend to create file
+      setTimeout(fetchEntriesFromGitHub, 2000);
+    } else {
+      op.attempts = (op.attempts || 0) + 1;
+    }
+  }
+}
+
+btnNew.addEventListener('click', () => {
+  const visible = moduleNew.style.display === 'block';
+  moduleNew.style.display = visible ? 'none' : 'block';
+  moduleSearch.style.display = 'none';
+  if (!visible) entryText.focus();
+});
+btnSearch.addEventListener('click', () => {
+  const visible = moduleSearch.style.display === 'block';
+  moduleSearch.style.display = visible ? 'none' : 'block';
+  moduleNew.style.display = 'none';
+  if (!visible) searchText.focus();
+});
+saveBtn.addEventListener('click', () => {
+  const text = (entryText.value || '').trim();
+  if (!text) { showToast('Please enter something'); return; }
+  if (!profileName) {
+    showProfileModal(true);
+    showToast('Please set a profile name before submitting');
+    return;
+  }
+  queueSubmission(text);
+  entryText.value = '';
+});
+searchText.addEventListener('input', (e) => renderEntries(e.target.value));
+clearSearch.addEventListener('click', () => { searchText.value = ''; renderEntries(''); });
+
+settingsBtn.addEventListener('click', () => { settingsModal.style.display = 'flex'; settingsModal.setAttribute('aria-hidden','false'); });
+closeSettings.addEventListener('click', () => { settingsModal.style.display = 'none'; settingsModal.setAttribute('aria-hidden','true'); });
+closeEdit.addEventListener('click', () => { editModal.style.display = 'none'; editModal.setAttribute('aria-hidden','true'); });
+saveEdit.addEventListener('click', () => showToast('Editing remote GitHub entries is not supported from the client'));
+
+autoSaveCheck.addEventListener('change', (e) => { settings.autoSave = e.target.checked; persistSettings(); });
+onlineSyncCheck.addEventListener('change', (e) => { settings.onlineSync = e.target.checked; persistSettings(); if (settings.onlineSync) tryProcessPending(); });
+
+themeSwitch.addEventListener('click', () => {
+  const current = body.getAttribute('data-theme') || 'light';
+  const next = current === 'light' ? 'dark' : 'light';
+  applyTheme(next, true);
+});
+
+exportBtn.addEventListener('click', () => {
+  try {
+    const data = JSON.stringify(entries || [], null, 2);
+    navigator.clipboard.writeText(data).then(()=> showToast('Entries copied to clipboard'));
+  } catch (e) {
+    showToast('Export failed');
+  }
+});
+
+clearBtn.addEventListener('click', () => {
+  if (!confirm('Clear local cache and pending submissions?')) return;
+  localStorage.removeItem(CACHE_KEY);
+  localStorage.removeItem(PENDING_KEY);
+  localStorage.removeItem(ETAG_KEY);
+  entries = [];
+  pending = [];
+  renderEntries('');
+  updateNotificationBadge();
+  showToast('Local data cleared');
+});
+
+window.addEventListener('online', () => { showToast('Back online — syncing pending submissions'); tryProcessPending(); fetchEntriesFromGitHub(); });
+window.addEventListener('offline', () => { showToast('Offline — submissions will be queued'); });
+
+saveProfileBtn.addEventListener('click', () => {
+  const val = (profileNameInput.value || '').trim();
+  if (!val) { showToast('Please enter a name'); return; }
+  saveProfile(val);
+  showProfileModal(false);
+  showToast('Profile saved');
+  fetchEntriesFromGitHub();
+});
+closeProfile.addEventListener('click', () => { showProfileModal(false); });
+cancelProfileBtn.addEventListener('click', () => { showProfileModal(false); });
+editProfileBtn.addEventListener('click', () => { showProfileModal(true); });
+
+function init() {
+  loadSettings();
+  loadFromCache();
+  loadPending();
+  loadProfile();
+  if (!profileName) {
+    setTimeout(()=> showProfileModal(true), 200);
+  } else {
+    fetchEntriesFromGitHub();
+  }
+  setTimeout(tryProcessPending, 1000);
+}
+init();
+</script>
+</body>
+</html>
