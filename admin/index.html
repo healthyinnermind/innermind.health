@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>innermind/admin</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f8fb;
+  --card:#ffffff;
+  --muted:#6b7280;
+  --accent:#2563eb;
+  --border:#e6eefc;
+  --shadow: 0 8px 24px rgba(16,24,40,.06);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;
+  margin:0;
+  padding:24px;
+  background:var(--bg);
+  color:#0f172a;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+.container{max-width:1200px;margin:0 auto;display:flex;gap:18px;align-items:flex-start}
+.header{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+h1{font-size:18px;margin:0;font-weight:600}
+.panel{background:var(--card);border-radius:12px;padding:14px;box-shadow:var(--shadow);border:1px solid rgba(15,23,42,0.03)}
+.clients{width:320px;flex:0 0 320px}
+.list{max-height:74vh;overflow:auto;padding-right:6px}
+.item{padding:10px;border-radius:10px;cursor:pointer;border:1px solid transparent;margin-bottom:8px;transition:all .12s}
+.item:hover{background:#f1f5ff;border-color:var(--border);transform:translateY(-1px)}
+.item .name{font-weight:600}
+.item .count{font-size:13px;color:var(--muted)}
+.controls{display:flex;gap:8px;align-items:center}
+.btn{padding:8px 12px;border-radius:10px;border:0;background:var(--accent);color:#fff;cursor:pointer;font-weight:600}
+.btn.secondary{background:#6b7280}
+.search{width:100%;padding:10px;border-radius:10px;border:1px solid #e6e9ef;margin-bottom:12px}
+.entries{flex:1;min-width:0}
+.client-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.client-title{font-size:18px;font-weight:700}
+.client-meta{font-size:13px;color:var(--muted)}
+.entry{border-radius:10px;padding:14px;margin-bottom:12px;border:1px solid #eef2f7;background:linear-gradient(180deg,#fff,#fbfdff)}
+.entry-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.entry-title{font-weight:800;color:#0b1220;font-size:20px}
+.entry-body{margin-top:12px;padding:12px;border-radius:8px;background:#f8fafc;border:1px solid #eef2f7;white-space:pre-wrap;color:#0b1220}
+.entry-feedback{margin-top:12px;padding:12px;border-radius:8px;background:#fff7ed;border:1px solid #ffedd5;color:#92400e}
+.entry-feedback .label{font-weight:700;margin-bottom:6px;display:block;color:#92400e}
+.entry-actions{margin-top:12px;display:flex;gap:8px}
+.small{font-size:13px;color:var(--muted)}
+.empty{padding:18px;color:var(--muted)}
+.modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(2,6,23,.45);z-index:40}
+.modal[aria-hidden="false"]{display:flex}
+.modal .box{width:720px;max-width:95%;max-height:80vh;background:#fff;padding:18px;border-radius:10px;box-shadow:0 10px 30px rgba(2,6,23,.2);overflow:auto}
+.toggle{background:transparent;border:0;color:var(--accent);cursor:pointer;padding:6px 8px;border-radius:8px}
+#fbText{width:100%;min-height:140px;padding:12px;border-radius:8px;border:1px solid #e6eefc;background:#fbfdff;resize:vertical;font-family:inherit;color:#0b1220}
+#fbClose{background:transparent;border:0;font-size:18px;cursor:pointer;color:var(--muted);padding:6px;border-radius:6px}
+#fbClose:hover{background:#f1f5ff;color:var(--accent)}
+@media (max-width:900px){
+  .container{flex-direction:column;padding:12px}
+  .clients{width:100%;flex:0 0 auto}
+}
+</style>
+</head>
+<body>
+  <div class="header">
+    <h1>innermind</h1>
+    <div class="small" id="clientHeaderExtra"></div>
+  </div>
+
+  <div class="container">
+    <div class="panel clients" aria-label="Clients panel">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <strong>Clients</strong>
+      </div>
+
+      <input id="clientSearch" class="search" placeholder="Filter clients..." aria-label="Filter clients" />
+
+      <div id="clientsList" class="list" role="list"></div>
+    </div>
+
+    <div class="panel entries" aria-label="Entries panel">
+      <div class="client-header">
+        <div>
+          <div id="clientTitle" class="client-title">Select a client</div>
+          <div id="clientCount" class="client-meta">—</div>
+        </div>
+        <div class="controls">
+          <div id="status" class="small"></div>
+        </div>
+      </div>
+
+      <div id="entriesList" role="list"></div>
+    </div>
+  </div>
+
+  <div id="feedbackModal" class="modal" role="dialog" aria-hidden="true" aria-labelledby="fbTitle" tabindex="-1">
+    <div class="box" role="document" aria-describedby="fbMeta">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+        <h3 id="fbTitle" style="margin:0;font-size:16px">Add feedback</h3>
+        <button id="fbClose" class="toggle" aria-label="Close feedback dialog">✕</button>
+      </div>
+      <div class="meta" id="fbMeta" style="color:var(--muted);font-size:13px;margin-bottom:8px"></div>
+      <textarea id="fbText" placeholder="Write feedback to append..." aria-label="Feedback text"></textarea>
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:12px">
+        <button id="fbCancel" class="btn secondary">Cancel</button>
+        <button id="fbSubmit" class="btn">Submit feedback</button>
+      </div>
+    </div>
+  </div>
+
+<script>
+const GITHUB_API_DIR = 'https://api.github.com/repos/tj-db/innermind/contents/ENTRIES';
+const FORM_ID = '1FAIpQLSfDfwZrr7Wc3CrxxDSzS0zYc9T7ioBZ_sQyMbTht1psMrjfZg';
+const FORM_ENDPOINT = 'https://docs.google.com/forms/d/e/' + FORM_ID + '/formResponse';
+const FORM_FIELDS = {
+  feedback: 'entry.1225062221',
+  client: 'entry.2138377113',
+  entry: 'entry.1572331366',
+  filename: 'entry.2007192383'
+};
+
+const clientsListEl = document.getElementById('clientsList');
+const entriesListEl = document.getElementById('entriesList');
+const clientTitle = document.getElementById('clientTitle');
+const clientCount = document.getElementById('clientCount');
+const clientSearch = document.getElementById('clientSearch');
+const statusEl = document.getElementById('status');
+const clientHeaderExtra = document.getElementById('clientHeaderExtra');
+
+const feedbackModal = document.getElementById('feedbackModal');
+const fbText = document.getElementById('fbText');
+const fbSubmit = document.getElementById('fbSubmit');
+const fbCancel = document.getElementById('fbCancel');
+const fbClose = document.getElementById('fbClose');
+const fbTitle = document.getElementById('fbTitle');
+const fbMeta = document.getElementById('fbMeta');
+
+let clientMap = {};
+let currentClient = null;
+let currentEntry = null;
+let previousActiveElement = null;
+let modalKeyHandler = null;
+
+function escapeHtml(s){
+  if(s === undefined || s === null) return '';
+  return String(s).replace(/[&<>"']/g, function(m){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]); });
+}
+
+function parseFrontMatter(text){
+  if(!text) return {fm:{}, body:''};
+  const m = text.match(/^-{3}\s*([\s\S]*?)\s*-{3}\s*([\s\S]*)$/);
+  if(!m) return {fm:{}, body:text};
+  const fmRaw = m[1].replace(/\r\n/g,'\n');
+  const body = (m[2] || '').replace(/^\n/, '');
+  const lines = fmRaw.split('\n');
+  const fm = {};
+  let key = null;
+  let block = false;
+  let blockType = null;
+  let buf = [];
+
+  for(const rawLine of lines){
+    const line = rawLine.replace(/\r$/, '');
+    const kv = line.match(/^([A-Za-z0-9_-]+):\s*(.*)$/);
+
+    if(kv){
+      if(key && block){
+        let value = buf.join('\n');
+        if(blockType === '>'){
+          value = value.replace(/\n{2,}/g, '\n\n').replace(/\n/g, ' ');
+        }
+        fm[key] = value.trim();
+        buf = [];
+        block = false;
+        blockType = null;
+      }
+
+      key = kv[1];
+      let val = kv[2];
+
+      if(val === '|' || val === '>'){
+        block = true;
+        blockType = val;
+        fm[key] = '';
+        continue;
+      }
+
+      if((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))){
+        val = val.slice(1,-1);
+      }
+      fm[key] = val;
+    } else if(block && key){
+      buf.push(line.replace(/^\s{0,2}/,''));
+    } else {
+    }
+  }
+
+  if(key && block){
+    let value = buf.join('\n');
+    if(blockType === '>'){
+      value = value.replace(/\n{2,}/g, '\n\n').replace(/\n/g, ' ');
+    }
+    fm[key] = value.trim();
+  }
+
+  return {fm, body};
+}
+
+function formatLocalTime(iso){
+  if(!iso) return '—';
+  try {
+    const d = new Date(iso);
+    if(isNaN(d.getTime())) return '—';
+    try {
+      return d.toLocaleString(undefined, {dateStyle:'medium', timeStyle:'short'});
+    } catch(e){
+      return d.toLocaleString();
+    }
+  } catch (e) {
+    return '—';
+  }
+}
+
+async function loadAll(){
+  clientsListEl.innerHTML = 'Loading...';
+  entriesListEl.innerHTML = '';
+  clientMap = {};
+  currentClient = null;
+  clientTitle.textContent = 'Select a client';
+  clientCount.textContent = '—';
+  statusEl.textContent = '';
+
+  try {
+    const res = await fetch(GITHUB_API_DIR + '?t=' + Date.now(), { cache: 'no-store' });
+    if(!res.ok) throw new Error('Failed to list directory');
+    const list = await res.json();
+    const files = list.filter(f => f.type === 'file' && f.download_url);
+
+    await Promise.all(files.map(async f => {
+      try {
+        const r = await fetch(f.download_url + '?t=' + Date.now(), { cache: 'no-store' });
+        if(!r.ok) return;
+        const text = await r.text();
+        const parsed = parseFrontMatter(text);
+        const client = (parsed.fm.client || parsed.fm.name || '').toString().trim();
+        if(!client) return;
+        const entryBody = (parsed.body && parsed.body.trim()) ? parsed.body : (parsed.fm.entry || parsed.fm.body || '');
+        const entry = { id: f.name, path: f.path, sha: f.sha, fm: parsed.fm, body: entryBody };
+        clientMap[client] = clientMap[client] || [];
+        clientMap[client].push(entry);
+      } catch (e) {
+        console.error('Failed to fetch file', f.name, e);
+      }
+    }));
+
+    renderClients();
+    statusEl.textContent = '';
+  } catch (err) {
+    clientsListEl.innerHTML = '<div class="empty">Failed to load entries from GitHub.</div>';
+    statusEl.textContent = 'Error';
+    console.error(err);
+  }
+}
+
+function renderClients(filter = ''){
+  clientsListEl.innerHTML = '';
+  const clients = Object.keys(clientMap).sort((a,b)=>a.localeCompare(b));
+  const filtered = clients.filter(c => c.toLowerCase().includes(filter.toLowerCase()));
+  if(filtered.length === 0){
+    clientsListEl.innerHTML = '<div class="empty">No clients found in ENTRIES.</div>';
+    clientTitle.textContent = 'Select a client';
+    clientCount.textContent = '0';
+    return;
+  }
+  filtered.forEach(c => {
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.setAttribute('role','listitem');
+    el.innerHTML = `<div style="display:flex;justify-content:space-between;align-items:center">
+      <div class="name">${escapeHtml(c)}</div>
+      <div class="count">${clientMap[c].length}</div>
+    </div>`;
+    el.onclick = () => selectClient(c);
+    clientsListEl.appendChild(el);
+  });
+  clientTitle.textContent = 'Select a client';
+  clientCount.textContent = filtered.length + ' clients';
+}
+
+function selectClient(name){
+  currentClient = name;
+  clientTitle.textContent = name;
+  clientHeaderExtra.textContent = '';
+  const list = (clientMap[name] || []).slice().sort((a,b)=>{
+    const da = a.fm.date || a.fm.timestamp || a.id;
+    const db = b.fm.date || b.fm.timestamp || b.id;
+    return (db || '').localeCompare(da || '');
+  });
+  entriesListEl.innerHTML = '';
+  clientCount.textContent = ``;
+  if(list.length === 0){
+    entriesListEl.innerHTML = '<div class="empty">No entries for this client.</div>';
+    return;
+  }
+  list.forEach(e => {
+    const div = document.createElement('div');
+    div.className = 'entry';
+    const localDateTime = formatLocalTime(e.fm.date);
+    const feedbackText = e.fm.feedback ? e.fm.feedback.trim() : '';
+    const feedbackDisplay = feedbackText ? feedbackText : '—';
+    const hasFeedback = !!feedbackText;
+    const entryBodyText = (e.body || '').trim() || '—';
+
+    div.innerHTML = `
+      <div class="entry-top">
+        <div>
+          <div class="entry-title">${escapeHtml(localDateTime)}</div>
+        </div>
+      </div>
+
+      <div class="entry-body" aria-label="Entry content">${escapeHtml(entryBodyText)}</div>
+
+      <div class="entry-feedback" aria-label="Feedback" style="display:${hasFeedback ? '' : 'none'}">
+        <span class="label">Feedback</span>
+        <div class="feedback-content" style="white-space:pre-wrap">${escapeHtml(feedbackDisplay)}</div>
+      </div>
+
+      <div class="entry-actions">
+        <button class="btn">Add feedback</button>
+        <button class="toggle" aria-hidden="${hasFeedback ? 'false' : 'true'}" style="display:${hasFeedback ? '' : 'none'}">Show feedback</button>
+      </div>
+    `;
+
+    const btn = div.querySelector('button.btn');
+    const toggle = div.querySelector('button.toggle');
+    const feedbackBlock = div.querySelector('.entry-feedback');
+
+    btn.addEventListener('click', () => openFeedback(e, btn));
+
+    if (!hasFeedback) {
+      if(toggle) toggle.style.display = 'none';
+      if(toggle) toggle.setAttribute('aria-hidden', 'true');
+    } else {
+      feedbackBlock.setAttribute('aria-hidden', 'true');
+      toggle.setAttribute('aria-expanded', 'false');
+
+      toggle.addEventListener('click', () => {
+        if (!feedbackBlock) return;
+        const isHidden = feedbackBlock.style.display === 'none';
+        if (isHidden) {
+          feedbackBlock.style.display = '';
+          feedbackBlock.setAttribute('aria-hidden', 'false');
+          toggle.textContent = 'Hide feedback';
+          toggle.setAttribute('aria-expanded', 'true');
+        } else {
+          feedbackBlock.style.display = 'none';
+          feedbackBlock.setAttribute('aria-hidden', 'true');
+          toggle.textContent = 'Show feedback';
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+    entriesListEl.appendChild(div);
+  });
+}
+
+function openFeedback(entry, triggerEl){
+  currentEntry = entry;
+  const existing = (entry.fm && entry.fm.feedback) ? entry.fm.feedback.trim() : '';
+  fbTitle.textContent = existing ? 'Edit feedback' : 'Add feedback';
+  fbMeta.textContent = `${formatLocalTime(entry.fm.date)} — ${entry.path || entry.id}`;
+  fbText.value = existing || '';
+  feedbackModal.setAttribute('aria-hidden','false');
+  feedbackModal.setAttribute('aria-modal','true');
+  feedbackModal.style.display = 'flex';
+  previousActiveElement = triggerEl || document.activeElement;
+  trapFocus(feedbackModal);
+  setTimeout(()=> fbText.focus(), 0);
+}
+
+function closeModal(){
+  feedbackModal.style.display = 'none';
+  feedbackModal.setAttribute('aria-hidden','true');
+  feedbackModal.removeAttribute('aria-modal');
+  if(modalKeyHandler) document.removeEventListener('keydown', modalKeyHandler);
+  modalKeyHandler = null;
+  try { if(previousActiveElement) previousActiveElement.focus(); } catch(e){}
+  currentEntry = null;
+}
+
+function trapFocus(modal){
+  const focusable = 'a[href], area[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+  const nodes = Array.from(modal.querySelectorAll(focusable));
+  const first = nodes[0];
+  const last = nodes[nodes.length-1];
+  modalKeyHandler = function(e){
+    if(e.key === 'Escape'){ e.preventDefault(); closeModal(); return; }
+    if(e.key === 'Tab'){
+      if(nodes.length === 0) { e.preventDefault(); return; }
+      if(e.shiftKey){
+        if(document.activeElement === first){ e.preventDefault(); last.focus(); }
+      } else {
+        if(document.activeElement === last){ e.preventDefault(); first.focus(); }
+      }
+    }
+  };
+  document.addEventListener('keydown', modalKeyHandler);
+}
+
+fbCancel.addEventListener('click', () => closeModal());
+fbClose.addEventListener('click', () => closeModal());
+feedbackModal.addEventListener('click', (e) => { if(e.target === feedbackModal) closeModal(); });
+
+fbSubmit.addEventListener('click', async () => {
+  if(!currentEntry) return;
+  const feedback = (fbText.value || '').trim();
+  if(!feedback){ alert('Please enter feedback'); return; }
+  const form = new FormData();
+  form.append(FORM_FIELDS.feedback, feedback);
+  form.append(FORM_FIELDS.client, currentClient || '');
+  const entryText = (currentEntry.body || '').trim().slice(0,200);
+  form.append(FORM_FIELDS.entry, entryText);
+  form.append(FORM_FIELDS.filename, currentEntry.path || currentEntry.id || '');
+  try {
+    await fetch(FORM_ENDPOINT, { method: 'POST', body: form, mode: 'no-cors' });
+    currentEntry.fm = currentEntry.fm || {};
+    currentEntry.fm.feedback = feedback;
+    if(currentClient) selectClient(currentClient);
+    alert('Feedback submitted to the form.');
+    closeModal();
+  } catch (err) {
+    console.error(err);
+    alert('Failed to submit feedback (network error).');
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if(e.key === 'Escape' && feedbackModal.getAttribute('aria-hidden') === 'false') closeModal();
+});
+
+clientSearch.addEventListener('input', (e) => {
+  renderClients(e.target.value || '');
+});
+
+loadAll();
+</script>
+</body>
+</html>
